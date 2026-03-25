@@ -51,5 +51,39 @@ int string_copy(str* s1, str* s2) {
   s2->str = s1->str;
 }
 
+const char* string_raw(str* s) {
+  if(!s) return -1;
+  return s->str;
+}
+
+int string_concat(str* s1, str* s2) {
+  if(!s1) return -1;
+  if(!s2) return -1;
+  
+  char* tmp;
+  unsigned int l;
+
+  while(l < s1->len) {
+    tmp[l] = s1[l];
+    l++;
+  }
+
+  while((l - s1->len) < s2->len) {
+    tmp[(l - s1->len)] = s2[(l - s1->len)];
+    l++;
+  }
+
+  if(l != (s1->len + s2->len)) return -1;
+
+  return string(tmp, l);
+}
+
+int string_concat(str* s1, const char* string) {
+  if(!s1) return -1;
+
+  s2 = string(string, sizeof(char*));
+  return string_concat(s1, s2);
+}
+
 #define STR_H
 #endif
