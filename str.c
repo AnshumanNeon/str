@@ -1,11 +1,11 @@
 #include "./str.h"
 #include <stdlib.h>
 
-str* string(const char* string, unsigned int len) {
+c_str* string(const char* string, unsigned int len) {
   if(!string) return NULL;
   if(len <= 0) return NULL;
 
-  str* p = (str*)malloc(sizeof(str));
+  c_str* p = (c_str*)malloc(sizeof(str));
 
   // verify length
   unsigned int l = 0;
@@ -25,18 +25,18 @@ str* string(const char* string, unsigned int len) {
   return p;
 }
 
-unsigned int string_len(str* s) {
+unsigned int string_len(c_str* s) {
   if(!s) return -1;
   return s->len;
 }
 
-int string_free(str* s) {
+int string_free(c_str* s) {
   if(!s) return -1;
   free(s);
   return 1;
 }
 
-int string_copy(str* s1, str* s2) {
+int string_copy(c_str* s1, c_str* s2) {
   if(!s1) return -1;
   if(!s2) return -1;
 
@@ -46,12 +46,12 @@ int string_copy(str* s1, str* s2) {
   return 1;
 }
 
-const char* string_raw(str* s) {
+const char* string_raw(c_str* s) {
   if(!s) return NULL;
   return s->str;
 }
 
-int string_concat_str(str* s1, str* s2) {
+int string_concat_str(c_str* s1, c_str* s2) {
   if(!s1) return -1;
   if(!s2) return -1;
   
@@ -74,9 +74,9 @@ int string_concat_str(str* s1, str* s2) {
   return 1;
 }
 
-int string_concat(str* s1, const char* s) {
+int string_concat(c_str* s1, const char* s) {
   if(!s1) return -1;
 
-  str* s2 = string(s, sizeof(char*));
+  c_str* s2 = string(s, sizeof(char*));
   return string_concat_str(s1, s2);
 }
