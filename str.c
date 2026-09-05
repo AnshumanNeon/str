@@ -2,14 +2,14 @@
 #include <stdlib.h>
 
 str* string(const char* string, unsigned int len) {
-  if(!s) return -1;
-  if(len < 0) return -1;
+  if(!string) return NULL;
+  if(len <= 0) return NULL;
 
   str* p = (str*)malloc(sizeof(str));
 
   // verify length
-  int l = 0;
-  while(string[l] != "\0") {
+  unsigned int l = 0;
+  while(string[l] != '\0') {
     l++;
   }
 
@@ -18,11 +18,11 @@ str* string(const char* string, unsigned int len) {
   p->len = l;
 
   // put string to p
-  for(int i = 0; i < p->len; i++) {
+  for(unsigned int i = 0; i < p->len; i++) {
     p->str[i] = string[i];
   }
 
-  return *p;
+  return p;
 }
 
 unsigned int string_len(str* s) {
@@ -42,38 +42,41 @@ int string_copy(str* s1, str* s2) {
 
   s2->len = s1->len;
   s2->str = s1->str;
+
+  return 1;
 }
 
 const char* string_raw(str* s) {
-  if(!s) return -1;
+  if(!s) return NULL;
   return s->str;
 }
 
-int string_concat(str* s1, str* s2) {
+int string_concat_str(str* s1, str* s2) {
   if(!s1) return -1;
   if(!s2) return -1;
   
-  char* tmp;
+  char* tmp = "";
   unsigned int l;
 
   while(l < s1->len) {
-    tmp[l] = s1[l];
+    tmp[l] = s1->str[l];
     l++;
   }
 
   while((l - s1->len) < s2->len) {
-    tmp[(l - s1->len)] = s2[(l - s1->len)];
+    tmp[(l - s1->len)] = s2->str[(l - s1->len)];
     l++;
   }
 
   if(l != (s1->len + s2->len)) return -1;
 
-  return string(tmp, l);
+  s1 = string(tmp, l);
+  return 1;
 }
 
-int string_concat(str* s1, const char* string) {
+int string_concat(str* s1, const char* s) {
   if(!s1) return -1;
 
-  s2 = string(string, sizeof(char*));
-  return string_concat(s1, s2);
+  str* s2 = string(s, sizeof(char*));
+  return string_concat_str(s1, s2);
 }
