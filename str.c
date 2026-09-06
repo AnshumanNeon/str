@@ -5,7 +5,7 @@ c_str* string(const char* string, unsigned int len) {
   if(!string) return NULL;
   if(len <= 0) return NULL;
 
-  c_str* p = (c_str*)malloc(sizeof(str));
+  c_str* p = (c_str*)malloc(sizeof(c_str));
 
   // verify length
   unsigned int l = 0;
@@ -80,9 +80,9 @@ int string_reverse(c_str* s) {
   if(s->len <= 0) return -1;
   
   unsigned int len = s->len;
-  char c = '';
+  char c = '\0';
 
-  for(unsigned int i = 0; i < (int)(len / 2); i++) {
+  for(unsigned int i = 0; i < (unsigned int)(len / 2); i++) {
     c = s->str[i];
     s->str[i] = s->str[len-i];
     s->str[len-i] = c;
@@ -93,7 +93,7 @@ int string_reverse(c_str* s) {
 
 int string_clear(c_str* s) {
   if(!s) return -1;
-  if(s->len <= 0) return;
+  if(s->len <= 0) return -1;
 
   s->str[0] = '\0';
   s->len = 0;
