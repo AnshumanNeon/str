@@ -9,18 +9,12 @@ c_str* string(const char* string, unsigned int len) {
 
   // verify length
   unsigned int l = 0;
-  while(string[l] != '\0') {
+  while(string[l] != '\0' && l < len) {
+    p->str[l] = string[l];
     l++;
   }
 
-  if(l > len) l = len;
-
   p->len = l;
-
-  // put string to p
-  for(unsigned int i = 0; i < p->len; i++) {
-    p->str[i] = string[i];
-  }
 
   return p;
 }
@@ -79,4 +73,30 @@ int string_concat(c_str* s1, const char* s) {
 
   c_str* s2 = string(s, sizeof(char*));
   return string_concat_str(s1, s2);
+}
+
+int string_reverse(c_str* s) {
+  if(!s) return -1;
+  if(s->len <= 0) return -1;
+  
+  unsigned int len = s->len;
+  char c = '';
+
+  for(unsigned int i = 0; i < (int)(len / 2); i++) {
+    c = s->str[i];
+    s->str[i] = s->str[len-i];
+    s->str[len-i] = c;
+  }
+
+  return 1;
+}
+
+int string_clear(c_str* s) {
+  if(!s) return -1;
+  if(s->len <= 0) return;
+
+  s->str[0] = '\0';
+  s->len = 0;
+
+  return 0;
 }

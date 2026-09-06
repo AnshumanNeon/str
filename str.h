@@ -12,6 +12,8 @@ int string_copy(c_str* s1, c_str* s2);
 const char* string_raw(c_str* s);
 int string_concat_str(c_str* s1, c_str* s2);
 int string_concat(c_str* s1, const char* s);
+int string_reverse(c_str* s);
+int string_clear(c_str* s);
 
 #define C_STR_H
 #endif
